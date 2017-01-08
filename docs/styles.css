@@ -1,0 +1,64 @@
+* {
+  box-sizing: border-box;
+}
+
+html {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  color: rgba(26, 26, 26, 0.86);
+  height: 100%;
+  margin: 0;
+  font-family: 'Noto Sans Japanese', serif;
+}
+
+.container {
+  height: 100%;
+}
+
+#root {
+  height: 100%;
+}
+
+.header {
+  position: fixed;
+  top: 0;
+  height: 20px;
+}
+
+.footer {
+  position: fixed;
+  bottom: 0;
+  height: 20px;
+}
+
+.note-container {
+  height: 100%;
+  padding: 20px 0 20px;
+}
+
+.origin-area {
+  border-width: 1px 1px 1px 0;
+  border-style: solid;
+  border-color: grey;
+  width: 50%;
+  height: 100%;
+  resize: none;
+  margin: 0;
+  padding: 10px;
+}
+
+.translated-area {
+  border-width: 1px 1px 1px 0;
+  border-style: dotted;
+  border-color: grey;
+  display: inline-block;
+  height: 100%;
+  width: 50%;
+  vertical-align: top;
+  margin: 0;
+  padding: 10px;
+  word-wrap: break-word;
+}
