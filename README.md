@@ -2,7 +2,7 @@
 
 ## tasks
 
-- [ ] local storage
+- [x] local storage
 - [ ] export
   - [ ] text
   - [ ] PDF
