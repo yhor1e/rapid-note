@@ -9,14 +9,12 @@ const store = createStore(reducer);
 
 store.dispatch(initialize());
 
-const applyVal = (e) => {
-  let val = e.target.value;
-  return store.dispatch(inputNote(val));
-};
-
 const render = () => {
   return ReactDOM.render(
-    <RootView originVal={ store.getState().originVal } translatedVal={{__html: store.getState().translatedVal }} onKeyUp={ applyVal }/>,
+    <RootView
+       raw={ store.getState().raw }
+       html={{__html: store.getState().html }}
+       onKeyUp={ e => store.dispatch(inputNote(e.target.value)) }/>,
     document.getElementById('root')
   );
 };

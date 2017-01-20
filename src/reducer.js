@@ -4,33 +4,33 @@ import debug from 'debug';
 const d = debug('reducer');
 
 const initialState = {
-  originVal: '',
-  translatedVal: ''
+  raw: '',
+  html: ''
 };
 
 const reducer = (state, action) => {
 
-  if(typeof state === 'undefined') {
+  if (typeof state === 'undefined') {
     return initialState;
   }
-
-  if(action.type === 'INPUT_NOTE') {
-    d('DO_TRANSLATE');
-
+  switch (action.type) {
+  case 'INPUT_NOTE':
+    d('INPUT_NOTE');
     return Object.assign({}, state, {
-      originVal: action.val,
-      translatedVal: action.markedVal
+      raw: action.val,
+      html: action.markedVal
     });
-  } else if(action.type === 'INITIALIZE') {
+
+  case 'INITIALIZE':
     d('INITIALIZE');
-
     return Object.assign({}, state, {
-      originVal: action.val,
-      translatedVal: action.markedVal
+      raw: action.val,
+      html: action.markedVal
     });
-  }
 
-  return state;
+  default:
+    return state;
+  }
 };
 
 export default reducer;

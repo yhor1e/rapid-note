@@ -10,9 +10,9 @@ class RootView extends React.Component {
       <div className="container">
         <HeaderView />
         <NoteView
-           originVal={ this.props.originVal}
+           raw={ this.props.raw}
            onKeyUp={ this.props.onKeyUp}
-           translatedVal={ this.props.translatedVal }/>
+           html={ this.props.html }/>
         <FooterView />
       </div>
     );

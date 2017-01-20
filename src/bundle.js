@@ -22786,7 +22786,15 @@ exports.default = {
   },
   fetchNote: function fetchNote() {
     d('fetchNote');
-    return window.localStorage.getItem(KEY);
+
+    var note = window.localStorage.getItem(KEY);
+
+    // handle previous version
+    if (note == null) {
+      note = window.localStorage.getItem('originVal') || '';
+    }
+
+    return note;
   }
 };
 
@@ -22951,13 +22959,13 @@ var store = (0, _redux.createStore)(_reducer2.default);
 
 store.dispatch((0, _actionCreater.initialize)());
 
-var applyVal = function applyVal(e) {
-  var val = e.target.value;
-  return store.dispatch((0, _actionCreater.inputNote)(val));
-};
-
 var render = function render() {
-  return _reactDom2.default.render(_react2.default.createElement(_rootView2.default, { originVal: store.getState().originVal, translatedVal: { __html: store.getState().translatedVal }, onKeyUp: applyVal }), document.getElementById('root'));
+  return _reactDom2.default.render(_react2.default.createElement(_rootView2.default, {
+    raw: store.getState().raw,
+    html: { __html: store.getState().html },
+    onKeyUp: function onKeyUp(e) {
+      return store.dispatch((0, _actionCreater.inputNote)(e.target.value));
+    } }), document.getElementById('root'));
 };
 
 render();
@@ -23504,47 +23512,23 @@ function plural(ms, n, name) {
 },{}],207:[function(require,module,exports){
 'use strict';
 
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _createClass = function () {
-  function defineProperties(target, props) {
-    for (var i = 0; i < props.length; i++) {
-      var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
-    }
-  }return function (Constructor, protoProps, staticProps) {
-    if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
-  };
-}();
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
-function _interopRequireDefault(obj) {
-  return obj && obj.__esModule ? obj : { default: obj };
-}
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _classCallCheck(instance, Constructor) {
-  if (!(instance instanceof Constructor)) {
-    throw new TypeError("Cannot call a class as a function");
-  }
-}
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-function _possibleConstructorReturn(self, call) {
-  if (!self) {
-    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-  }return call && ((typeof call === "undefined" ? "undefined" : _typeof(call)) === "object" || typeof call === "function") ? call : self;
-}
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-function _inherits(subClass, superClass) {
-  if (typeof superClass !== "function" && superClass !== null) {
-    throw new TypeError("Super expression must either be null or a function, not " + (typeof superClass === "undefined" ? "undefined" : _typeof(superClass)));
-  }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
-}
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var NoteView = function (_React$Component) {
   _inherits(NoteView, _React$Component);
@@ -23558,7 +23542,19 @@ var NoteView = function (_React$Component) {
   _createClass(NoteView, [{
     key: 'render',
     value: function render() {
-      return _react2.default.createElement('div', { className: 'note-container' }, _react2.default.createElement('textarea', { id: 'inputedVal', type: 'text', placeholder: 'This is input area. If you input markdown styled charactors, the right area displays html', defaultValue: this.props.originVal, className: 'origin-area', onKeyUp: this.props.onKeyUp }), _react2.default.createElement('div', { id: 'outputedVal', dangerouslySetInnerHTML: this.props.translatedVal, readOnly: true, className: 'translated-area' }));
+
+      return _react2.default.createElement(
+        'div',
+        { className: 'note-container' },
+        _react2.default.createElement('textarea', { id: 'raw-area', type: 'text', className: 'raw-area',
+          placeholder: 'This is input area. If you input markdown styled charactors, the right area displays html',
+          defaultValue: this.props.raw,
+          onKeyUp: this.props.onKeyUp }),
+        _react2.default.createElement('div', { id: 'outputedVal',
+          readOnly: true,
+          dangerouslySetInnerHTML: this.props.html,
+          className: 'html-area' })
+      );
     }
   }]);
 
@@ -23583,8 +23579,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var d = (0, _debug2.default)('reducer'); // redux reducer
 
 var initialState = {
-  originVal: '',
-  translatedVal: ''
+  raw: '',
+  html: ''
 };
 
 var reducer = function reducer(state, action) {
@@ -23592,24 +23588,24 @@ var reducer = function reducer(state, action) {
   if (typeof state === 'undefined') {
     return initialState;
   }
+  switch (action.type) {
+    case 'INPUT_NOTE':
+      d('INPUT_NOTE');
+      return Object.assign({}, state, {
+        raw: action.val,
+        html: action.markedVal
+      });
 
-  if (action.type === 'INPUT_NOTE') {
-    d('DO_TRANSLATE');
+    case 'INITIALIZE':
+      d('INITIALIZE');
+      return Object.assign({}, state, {
+        raw: action.val,
+        html: action.markedVal
+      });
 
-    return Object.assign({}, state, {
-      originVal: action.val,
-      translatedVal: action.markedVal
-    });
-  } else if (action.type === 'INITIALIZE') {
-    d('INITIALIZE');
-
-    return Object.assign({}, state, {
-      originVal: action.val,
-      translatedVal: action.markedVal
-    });
+    default:
+      return state;
   }
-
-  return state;
 };
 
 exports.default = reducer;
@@ -23617,21 +23613,11 @@ exports.default = reducer;
 },{"debug":204}],209:[function(require,module,exports){
 'use strict';
 
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _createClass = function () {
-  function defineProperties(target, props) {
-    for (var i = 0; i < props.length; i++) {
-      var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
-    }
-  }return function (Constructor, protoProps, staticProps) {
-    if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
-  };
-}();
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = require('react');
 
@@ -23649,27 +23635,13 @@ var _noteView = require('./note-view.js');
 
 var _noteView2 = _interopRequireDefault(_noteView);
 
-function _interopRequireDefault(obj) {
-  return obj && obj.__esModule ? obj : { default: obj };
-}
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _classCallCheck(instance, Constructor) {
-  if (!(instance instanceof Constructor)) {
-    throw new TypeError("Cannot call a class as a function");
-  }
-}
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-function _possibleConstructorReturn(self, call) {
-  if (!self) {
-    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-  }return call && ((typeof call === "undefined" ? "undefined" : _typeof(call)) === "object" || typeof call === "function") ? call : self;
-}
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-function _inherits(subClass, superClass) {
-  if (typeof superClass !== "function" && superClass !== null) {
-    throw new TypeError("Super expression must either be null or a function, not " + (typeof superClass === "undefined" ? "undefined" : _typeof(superClass)));
-  }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
-}
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var RootView = function (_React$Component) {
   _inherits(RootView, _React$Component);
@@ -23683,10 +23655,16 @@ var RootView = function (_React$Component) {
   _createClass(RootView, [{
     key: 'render',
     value: function render() {
-      return _react2.default.createElement('div', { className: 'container' }, _react2.default.createElement(_headerView2.default, null), _react2.default.createElement(_noteView2.default, {
-        originVal: this.props.originVal,
-        onKeyUp: this.props.onKeyUp,
-        translatedVal: this.props.translatedVal }), _react2.default.createElement(_footerView2.default, null));
+      return _react2.default.createElement(
+        'div',
+        { className: 'container' },
+        _react2.default.createElement(_headerView2.default, null),
+        _react2.default.createElement(_noteView2.default, {
+          raw: this.props.raw,
+          onKeyUp: this.props.onKeyUp,
+          html: this.props.html }),
+        _react2.default.createElement(_footerView2.default, null)
+      );
     }
   }]);
 

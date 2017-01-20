@@ -12,6 +12,14 @@ export default {
   },
   fetchNote: () => {
     d('fetchNote');
-    return window.localStorage.getItem(KEY);
+
+    let note = window.localStorage.getItem(KEY);
+
+    // handle previous version
+    if(note == null){
+      note = window.localStorage.getItem('originVal') || '';
+    }
+
+    return note;
   }
 };
