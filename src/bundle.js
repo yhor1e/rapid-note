@@ -22747,9 +22747,9 @@ var _reducer = require('./reducer');
 
 var _reducer2 = _interopRequireDefault(_reducer);
 
-var _view = require('./view');
+var _rootView = require('./root-view');
 
-var _view2 = _interopRequireDefault(_view);
+var _rootView2 = _interopRequireDefault(_rootView);
 
 function _interopRequireDefault(obj) {
   return obj && obj.__esModule ? obj : { default: obj };
@@ -22767,7 +22767,7 @@ var applyVal = function applyVal(e) {
 };
 
 var render = function render() {
-  return _reactDom2.default.render(_react2.default.createElement(_view2.default, { originVal: store.getState().originVal, translatedVal: { __html: store.getState().translatedVal }, onKeyUp: applyVal }), document.getElementById('root'));
+  return _reactDom2.default.render(_react2.default.createElement(_rootView2.default, { originVal: store.getState().originVal, translatedVal: { __html: store.getState().translatedVal }, onKeyUp: applyVal }), document.getElementById('root'));
 };
 
 render();
@@ -22779,7 +22779,7 @@ var setData = function setData() {
 
 store.subscribe(setData);
 
-},{"./action-creater":199,"./reducer":201,"./view":202,"react":188,"react-dom":37,"redux":194}],201:[function(require,module,exports){
+},{"./action-creater":199,"./reducer":201,"./root-view":202,"react":188,"react-dom":37,"redux":194}],201:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {

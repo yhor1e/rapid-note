@@ -3,7 +3,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import actionCreater from './action-creater';
 import reducer from './reducer';
-import RootView from './view';
+import RootView from './root-view';
 
 const persistedState = {
   originVal: window.localStorage.getItem('originVal')
