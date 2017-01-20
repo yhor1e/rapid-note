@@ -1,5 +1,6 @@
 import React from 'react';
 import HeaderView from './header-view.js';
+import FooterView from './footer-view.js';
 
 class RootView extends React.Component {
 
@@ -12,8 +13,7 @@ class RootView extends React.Component {
           <div id="outputedVal" dangerouslySetInnerHTML={ this.props.translatedVal }  readOnly className="translated-area">
           </div>
         </div>
-        <footer className="footer">
-        </footer>
+        <FooterView />
       </div>
     );
   }

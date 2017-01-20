@@ -22771,6 +22771,72 @@ function _inherits(subClass, superClass) {
   }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
 }
 
+var FooterView = function (_React$Component) {
+  _inherits(FooterView, _React$Component);
+
+  function FooterView() {
+    _classCallCheck(this, FooterView);
+
+    return _possibleConstructorReturn(this, (FooterView.__proto__ || Object.getPrototypeOf(FooterView)).apply(this, arguments));
+  }
+
+  _createClass(FooterView, [{
+    key: "render",
+    value: function render() {
+      return _react2.default.createElement("footer", { className: "footer" });
+    }
+  }]);
+
+  return FooterView;
+}(_react2.default.Component);
+
+exports.default = FooterView;
+
+},{"react":188}],201:[function(require,module,exports){
+"use strict";
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () {
+  function defineProperties(target, props) {
+    for (var i = 0; i < props.length; i++) {
+      var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
+    }
+  }return function (Constructor, protoProps, staticProps) {
+    if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
+  };
+}();
+
+var _react = require("react");
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) {
+  return obj && obj.__esModule ? obj : { default: obj };
+}
+
+function _classCallCheck(instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function");
+  }
+}
+
+function _possibleConstructorReturn(self, call) {
+  if (!self) {
+    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+  }return call && ((typeof call === "undefined" ? "undefined" : _typeof(call)) === "object" || typeof call === "function") ? call : self;
+}
+
+function _inherits(subClass, superClass) {
+  if (typeof superClass !== "function" && superClass !== null) {
+    throw new TypeError("Super expression must either be null or a function, not " + (typeof superClass === "undefined" ? "undefined" : _typeof(superClass)));
+  }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+}
+
 var HeaderView = function (_React$Component) {
   _inherits(HeaderView, _React$Component);
 
@@ -22792,7 +22858,7 @@ var HeaderView = function (_React$Component) {
 
 exports.default = HeaderView;
 
-},{"react":188}],201:[function(require,module,exports){
+},{"react":188}],202:[function(require,module,exports){
 'use strict';
 
 var _redux = require('redux');
@@ -22845,7 +22911,7 @@ var setData = function setData() {
 
 store.subscribe(setData);
 
-},{"./action-creater":199,"./reducer":202,"./root-view":203,"react":188,"react-dom":37,"redux":194}],202:[function(require,module,exports){
+},{"./action-creater":199,"./reducer":203,"./root-view":204,"react":188,"react-dom":37,"redux":194}],203:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -22882,7 +22948,7 @@ var reducer = function reducer(state, action) {
 
 exports.default = reducer;
 
-},{"marked":34}],203:[function(require,module,exports){
+},{"marked":34}],204:[function(require,module,exports){
 'use strict';
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -22908,6 +22974,10 @@ var _react2 = _interopRequireDefault(_react);
 var _headerView = require('./header-view.js');
 
 var _headerView2 = _interopRequireDefault(_headerView);
+
+var _footerView = require('./footer-view.js');
+
+var _footerView2 = _interopRequireDefault(_footerView);
 
 function _interopRequireDefault(obj) {
   return obj && obj.__esModule ? obj : { default: obj };
@@ -22943,7 +23013,7 @@ var RootView = function (_React$Component) {
   _createClass(RootView, [{
     key: 'render',
     value: function render() {
-      return _react2.default.createElement('div', { className: 'container' }, _react2.default.createElement(_headerView2.default, null), _react2.default.createElement('div', { className: 'note-container' }, _react2.default.createElement('textarea', { id: 'inputedVal', type: 'text', placeholder: 'This is input area. If you input markdown styled charactors, the right area displays html', defaultValue: this.props.originVal, className: 'origin-area', onKeyUp: this.props.onKeyUp }), _react2.default.createElement('div', { id: 'outputedVal', dangerouslySetInnerHTML: this.props.translatedVal, readOnly: true, className: 'translated-area' })), _react2.default.createElement('footer', { className: 'footer' }));
+      return _react2.default.createElement('div', { className: 'container' }, _react2.default.createElement(_headerView2.default, null), _react2.default.createElement('div', { className: 'note-container' }, _react2.default.createElement('textarea', { id: 'inputedVal', type: 'text', placeholder: 'This is input area. If you input markdown styled charactors, the right area displays html', defaultValue: this.props.originVal, className: 'origin-area', onKeyUp: this.props.onKeyUp }), _react2.default.createElement('div', { id: 'outputedVal', dangerouslySetInnerHTML: this.props.translatedVal, readOnly: true, className: 'translated-area' })), _react2.default.createElement(_footerView2.default, null));
     }
   }]);
 
@@ -22952,4 +23022,4 @@ var RootView = function (_React$Component) {
 
 exports.default = RootView;
 
-},{"./header-view.js":200,"react":188}]},{},[201]);
+},{"./footer-view.js":200,"./header-view.js":201,"react":188}]},{},[202]);
