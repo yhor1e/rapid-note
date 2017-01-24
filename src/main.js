@@ -12,7 +12,7 @@ store.dispatch(initialize());
 const render = () => {
   return ReactDOM.render(
     <RootView
-       raw={ store.getState().raw }
+       plain={ store.getState().plain }
        html={{__html: store.getState().html }}
        onKeyUp={ e => store.dispatch(inputNote(e.target.value)) }/>,
     document.getElementById('root')

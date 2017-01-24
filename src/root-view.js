@@ -10,7 +10,7 @@ class RootView extends React.Component {
       <div className="container">
         <HeaderView />
         <NoteView
-           raw={ this.props.raw}
+           plain={ this.props.plain}
            onKeyUp={ this.props.onKeyUp}
            html={ this.props.html }/>
         <FooterView />

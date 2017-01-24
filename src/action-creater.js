@@ -14,8 +14,8 @@ export const initialize = () => {
   return ({
     type: 'INITIALIZE',
     index: 1,
-    val: note,
-    markedVal: marked(note)
+    plain: note,
+    html: marked(note)
   });
 };
 
@@ -28,7 +28,7 @@ export const inputNote = (note) => {
   return ({
     type: 'INPUT_NOTE',
     index: 2,
-    val: note,
-    markedVal: marked(note)
+    plain: note,
+    html: marked(note)
   });
 };

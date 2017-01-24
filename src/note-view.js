@@ -6,11 +6,11 @@ class NoteView extends React.Component {
 
     return (
       <div className='note-container'>
-        <textarea id="raw-area" type="text" className="raw-area"
+        <textarea id="plain-area" type="text" className="plain-area"
                   placeholder="This is input area. If you input markdown styled charactors, the right area displays html"
-                  defaultValue={ this.props.raw}
+                  defaultValue={ this.props.plain}
                   onKeyUp= { this.props.onKeyUp} />
-        <div id="outputedVal"
+        <div id="html-area"
              readOnly
              dangerouslySetInnerHTML={ this.props.html }
              className="html-area">

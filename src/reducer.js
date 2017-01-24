@@ -4,7 +4,7 @@ import debug from 'debug';
 const d = debug('reducer');
 
 const initialState = {
-  raw: '',
+  plain: '',
   html: ''
 };
 
@@ -17,15 +17,15 @@ const reducer = (state, action) => {
   case 'INPUT_NOTE':
     d('INPUT_NOTE');
     return Object.assign({}, state, {
-      raw: action.val,
-      html: action.markedVal
+      plain: action.plain,
+      html: action.html
     });
 
   case 'INITIALIZE':
     d('INITIALIZE');
     return Object.assign({}, state, {
-      raw: action.val,
-      html: action.markedVal
+      plain: action.plain,
+      html: action.html
     });
 
   default:
